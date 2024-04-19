@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tododb
+      PG_DATA: /data/postgres
+    volumes:
+      - tododb:/data/postgres
+
+
+volumes:
+  tododb:
+  ecomm-pgadmin:

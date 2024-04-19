@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+			integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+	</head>
+	<body>
+		<div class="w-full h-screen bg-gray-200 p-10">
+			<div class="flex items-center justify-center">
+				<div class="w-full sm:w-1/2 space-y-2">
+					<div class="space-y-6 p-5 bg-white rounded-lg shadow-md">
+						<h1 class="text-3xl font-medium text-gray-700 text-center">
+							Todo App
+						</h1>
+						<hr class="border-0 border-t-2 border-t-gray-400 w-full" />
+
+						<% if (todos.length) { %>
+
+						<ul class="text-gray-700 space-y-3">
+							<% for (let todo of todos) { %>
+							<li
+								class="flex justify-between items-center p-3 shadow-md rounded-md <%= todo.done ? 'bg-gray-200' : '' %>"
+							>
+								<p class="<%= todo.done ? 'line-through' : '' %>">
+									<%= todo.title %>
+								</p>
+								<div class="flex items-center space-x-2">
+									<form
+										id="toggle<%= todo.id %>"
+										method="GET"
+										action="/toggle/<%= todo.id %>"
+									>
+										<input class="h-7 w-7 rounded-full" type="checkbox" <%=
+										todo.done ? 'checked' : '' %> name="done"
+										onchange="document.getElementById('toggle<%= todo.id
+										%>').submit()" />
+									</form>
+
+									<form
+										id="delete<%= todo.id %>"
+										method="GET"
+										action="/delete/<%= todo.id %>"
+									>
+										<button
+											class="px-2 py-1 bg-red-500 hover:bg-red-600 rounded-md text-white"
+										>
+											<i class="fa-solid fa-trash"></i>
+										</button>
+									</form>
+								</div>
+							</li>
+							<% } %> <% } else { %>
+							<h1 class="text-gray-700 text-xl text-center font-semibold">
+								No Todos
+							</h1>
+							<% } %>
+						</ul>
+					</div>
+
+					<div class="space-y-2 p-4 bg-white rounded-lg shadow-md">
+						<form method="POST" action="/">
+							<input
+								class="h-10 text-lg w-full px-3 border-2 border-gray-400 rounded-md focus:outline-none text-gray-700"
+								type="text"
+								name="title"
+								placeholder="Enter todo title..."
+							/>
+							<button
+								type="submit"
+								class="mt-4 w-full p-2 bg-green-500 hover:bg-green-600 rounded-md shadow-md text-white text-2xl font-bold"
+							>
+								Add
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
